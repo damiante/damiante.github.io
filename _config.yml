@@ -8,11 +8,10 @@ title: Damian Testa's personal site
 email: "damian@damiantesta.com"
 matrix: "@damian:librem.one"
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  This is Damian Testa's personal site, blog, and archive of projects and
+  hobbies.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "http://damiantesta.com" # the base hostname & protocol for your site, e.g. http://example.com
 
 header:
   pages:
@@ -36,21 +35,12 @@ footer:
       link: "mailto:damian@damiantesta.com"
     - name: Matrix
       value: "@damian:librem.one"
-      link: "#"
+      link: "https://matrix.to/#/@damian:librem.one"
   follow:
-    - name: Twitter
-      link: http://twitter.com/YourTwitterUsername
-      username: "@YourTwitterUsername"
-    - name: Facebook
-      link: http://facebook.com/YourFacebookUsername
     - name: LinkedIn
       link: http://linkedin.com/in/YourLinkedInUsername
     - name: GitHub
-      link: http://github.com/YourGitHubUsername
-    - name: Dribbble
-      link: https://dribbble.com/YourDribbbleUsername
-    - name: Weibo
-      link: http://weibo.com/u/YourWeiboUsername
+      link: http://github.com/damiante
     - name: RSS
       link: /feed.xml
 
