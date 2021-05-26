@@ -105,9 +105,9 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
 
 .page-heading { font-size: 20px; }
 
-.profilepic { float: right; border: #ccc 1px solid; margin-left: 20px; max-width: 300px; }
+.profilepic { float: right; border: #ccc 1px solid; margin-left: 20px; max-width: 250px; }
 
-@media screen and (max-width: 500px) { .profilepic { float: none; margin-bottom: 20px; margin-left: 0px; } }
+@media screen and (max-width: 500px) { .profilepic { float: none; margin-bottom: 20px; margin-left: 0px; max-width: 80%; } }
 
 .footer-col { font-size: 12px; }
 
