@@ -1,0 +1,46 @@
+---
+layout: post
+title: "Music production"
+date: 2021-05-01 00:00:00 +1000
+categories: project
+---
+
+I find generally that the world of music is really opaque to me. Talking to
+people, they almost all have this kind of formative experience during their
+teenage years where they discover some band or genre of music that helps
+shape their developing personality and informs at least part of their 
+direction.  
+Personally I never had such an experience; when I was a teenager, most of
+the music I knew was written by Weird Al. I liked it because I thought it
+was clever. Even now I have a passionate love for mashups like those from
+[Neil Cicierega][mouthdreams] that doesn't seem to be shared by others.  
+As a result, I never really got into any particular genres of music. Most
+of the popular music I knew and still know is either from a Guitar Hero
+setlist or from one of my parents (and hence my love of '80s rock and pop).  
+
+In my burgeoning adulthood, I still find that others get more from music
+than I do. Melbourne, the city where I live, is renowned for its independent
+music and arts scene, but going to performances with my friends often leaves
+me feeling unsatisfied in the same way that eating a bowl of white rice
+or potato chips does. I see other people dancing and wonder why they feel
+the need to. This is probably just me being awkward but I genuinely don't
+get it, even if my reaction is performative.
+
+To that end, I've made a conscious effort to try to produce my own music.
+I hope this will give me a better understanding of what other people like
+about music and help me discover more of it. In particular, I like electronic
+music of the "lo-fi beats to chill/study/relax to" form, but also more upbeat
+music that imparts feelings of certain places or experiences. I really like
+[poolside.fm][poolside] for example, it makes me feel happy and is good
+background noise for a social event.
+
+I have already produced 3 songs at time of writing; I will probably upload
+them somewhere under my own name unless and until I find a style that feels
+unique, at which point I will label it with something I feel captures what
+I'm going for. I will edit this post with links to the music when I have
+uploaded it.
+
+
+
+[mouthdreams]: https://soundcloud.com/neilcic/mouthdreams
+[poolside]: https://poolside.fm/
