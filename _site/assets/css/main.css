@@ -131,9 +131,9 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
 
 .work-bubble { float: left; padding-right: 20px; width: 100px; height: 100px; }
 
-.blog-post-list .blog-post-date { width: 6em; color: #f00; display: block; float: left; }
+.blog-post-list .blog-post-date { width: 6em; color: white; display: block; float: left; }
 
-@media screen and (max-width: 500px) { .blog-post-list .blog-post-date { display: block; float: none; color: #f00; font-size: 11px; margin-top: 14px; } }
+@media screen and (max-width: 500px) { .blog-post-list .blog-post-date { display: block; float: none; color: white; font-size: 11px; margin-top: 14px; } }
 
 .blog-post-list .blog-post-title { font-size: 100%; letter-spacing: normal; }
 
