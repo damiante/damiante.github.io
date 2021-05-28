@@ -3,5 +3,5 @@ layout: blog
 ---
 
 <p>
-this is the landing page for the blog
+    A collection of my personal thoughts and musings; opinions are my own.
 </p>
