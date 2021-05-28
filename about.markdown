@@ -9,7 +9,13 @@ permalink: /about/
     North-West of Melbourne, on the banks of the Murray river. <br>
     I moved to Melbourne to study for University; I attended the University of
     Melbourne and was awarded a Bachelor of Science degree, majoring in Computing
-    and Software Systems, in 2017.
+    and Software Systems, in 2017. I also taught there for two semesters
+    across two different years; I was a Laboratory Demonstrator for Foundations
+    of Computing, an introduction to programming course for Science students
+    with no programming background, in the latter half of 2016. Following
+    outstanding reviews, I subsequently was the Head Tutor for Media
+    Computation, a similar subject for Design students with no science/maths
+    background assumed.
 </p>
 <p>
     Since then I've worked in various capacities predominantly in the financial
