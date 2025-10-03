@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================================
+   THEME CONFIGURATION - Edit colors, fonts, and styles here
+   ============================================================================
+
+   This section contains all theme variables for the site. You can easily
+   customize the appearance by modifying the HSL color values below.
+   All colors use HSL format: hsl(hue saturation% lightness%)
+
+   To change fonts, modify the font-family in the tailwind.config.ts file.
+*/
+
+@layer base {
+  :root {
+    /* Solarpunk Earth Tones */
+    --background: 38 40% 95%;
+    --foreground: 95 40% 15%;
+
+    --card: 38 35% 97%;
+    --card-foreground: 95 40% 15%;
+
+    --popover: 38 35% 97%;
+    --popover-foreground: 95 40% 15%;
+
+    /* Forest Green Primary */
+    --primary: 95 50% 25%;
+    --primary-foreground: 38 40% 95%;
+
+    /* Ocean Blue Secondary */
+    --secondary: 195 40% 45%;
+    --secondary-foreground: 38 40% 95%;
+
+    /* Beige Muted */
+    --muted: 38 30% 88%;
+    --muted-foreground: 95 20% 40%;
+
+    /* Accent - Warm Glow */
+    --accent: 35 60% 70%;
+    --accent-foreground: 95 40% 15%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 38 40% 95%;
+
+    --border: 38 25% 85%;
+    --input: 38 25% 85%;
+    --ring: 95 50% 25%;
+
+    --radius: 0.75rem;
+
+    /* Custom Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(195 40% 45% / 0.1), hsl(95 50% 25% / 0.1));
+    --gradient-card: linear-gradient(180deg, hsl(38 35% 97%), hsl(38 30% 94%));
+    
+    /* Shadows with natural glow */
+    --shadow-soft: 0 4px 20px hsl(95 50% 25% / 0.08);
+    --shadow-glow: 0 0 30px hsl(195 40% 45% / 0.15);
+    
+    /* Transitions */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 38 40% 96%;
+    --sidebar-foreground: 95 40% 20%;
+    --sidebar-primary: 95 50% 25%;
+    --sidebar-primary-foreground: 38 40% 95%;
+    --sidebar-accent: 38 30% 90%;
+    --sidebar-accent-foreground: 95 40% 20%;
+    --sidebar-border: 38 25% 85%;
+    --sidebar-ring: 95 50% 25%;
+  }
+
+  .dark {
+    --background: 95 30% 10%;
+    --foreground: 38 40% 95%;
+
+    --card: 95 25% 12%;
+    --card-foreground: 38 40% 95%;
+
+    --popover: 95 25% 12%;
+    --popover-foreground: 38 40% 95%;
+
+    --primary: 195 45% 55%;
+    --primary-foreground: 95 30% 10%;
+
+    --secondary: 95 30% 20%;
+    --secondary-foreground: 38 40% 95%;
+
+    --muted: 95 20% 18%;
+    --muted-foreground: 38 20% 70%;
+
+    --accent: 35 50% 60%;
+    --accent-foreground: 95 30% 10%;
+
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 38 40% 95%;
+
+    --border: 95 20% 22%;
+    --input: 95 20% 22%;
+    --ring: 195 45% 55%;
+
+    --shadow-soft: 0 4px 20px hsl(0 0% 0% / 0.3);
+    --shadow-glow: 0 0 30px hsl(195 45% 55% / 0.2);
+
+    --sidebar-background: 95 30% 12%;
+    --sidebar-foreground: 38 30% 85%;
+    --sidebar-primary: 195 45% 55%;
+    --sidebar-primary-foreground: 95 30% 10%;
+    --sidebar-accent: 95 20% 18%;
+    --sidebar-accent-foreground: 38 30% 85%;
+    --sidebar-border: 95 20% 22%;
+    --sidebar-ring: 195 45% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
