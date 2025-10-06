@@ -13,6 +13,11 @@ export interface Post {
   content: string;
 }
 
+export interface PageContent {
+  [key: string]: any;
+  content?: string;
+}
+
 /**
  * Parse markdown file content and extract frontmatter metadata
  */
@@ -88,4 +93,17 @@ export function sortPostMetadataByDate(posts: PostMetadata[]): PostMetadata[] {
     const dateB = new Date(b.date);
     return dateB.getTime() - dateA.getTime();
   });
+}
+
+/**
+ * Parse page content from markdown file
+ * Returns all frontmatter data plus optional content body
+ */
+export function parsePageContent(markdownContent: string): PageContent {
+  const { data, content } = matter(markdownContent);
+
+  return {
+    ...data,
+    content: content.trim() || undefined,
+  };
 }

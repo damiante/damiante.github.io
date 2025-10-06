@@ -1,4 +1,4 @@
-import { parseMarkdown, parseMarkdownMetadata, sortPostsByDate, sortPostMetadataByDate, type Post, type PostMetadata } from './markdown';
+import { parseMarkdown, parseMarkdownMetadata, parsePageContent, sortPostsByDate, sortPostMetadataByDate, type Post, type PostMetadata, type PageContent } from './markdown';
 
 /**
  * Load all blog posts metadata (without full content) - fast for listing pages
@@ -141,6 +141,32 @@ export async function loadProject(slug: string): Promise<Post | null> {
         return parseMarkdown(module, filename);
       } catch (error) {
         console.error(`Failed to load project: ${slug}`, error);
+        return null;
+      }
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Load page content from the content/pages directory
+ */
+export async function loadPageContent(pageName: string): Promise<PageContent | null> {
+  const modules = import.meta.glob('../../content/pages/*.md', {
+    eager: false,
+    query: '?raw',
+    import: 'default'
+  });
+
+  for (const path in modules) {
+    const filename = path.split('/').pop() || '';
+    if (filename === `${pageName}.md`) {
+      try {
+        const module = await modules[path]() as string;
+        return parsePageContent(module);
+      } catch (error) {
+        console.error(`Failed to load page content: ${pageName}`, error);
         return null;
       }
     }
