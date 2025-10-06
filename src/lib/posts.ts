@@ -1,7 +1,32 @@
-import { parseMarkdown, sortPostsByDate, type Post } from './markdown';
+import { parseMarkdown, parseMarkdownMetadata, sortPostsByDate, sortPostMetadataByDate, type Post, type PostMetadata } from './markdown';
 
 /**
- * Load all blog posts from the content/blog-posts directory
+ * Load all blog posts metadata (without full content) - fast for listing pages
+ */
+export async function loadBlogPostsMetadata(): Promise<PostMetadata[]> {
+  const posts: PostMetadata[] = [];
+
+  // Use Vite's glob import feature to load all markdown files
+  const modules = import.meta.glob('../../content/blog-posts/*.md', {
+    query: '?raw',
+    import: 'default'
+  });
+
+  console.log('Blog post modules found:', Object.keys(modules));
+
+  for (const path in modules) {
+    const filename = path.split('/').pop() || '';
+    const module = await modules[path]() as string;
+    const metadata = parseMarkdownMetadata(module, filename);
+    posts.push(metadata);
+  }
+
+  console.log('Blog posts metadata loaded:', posts.length);
+  return sortPostMetadataByDate(posts);
+}
+
+/**
+ * Load all blog posts from the content/blog-posts directory (with full content)
  */
 export async function loadBlogPosts(): Promise<Post[]> {
   const posts: Post[] = [];
@@ -27,7 +52,30 @@ export async function loadBlogPosts(): Promise<Post[]> {
 }
 
 /**
- * Load all project posts from the content/projects directory
+ * Load all project metadata (without full content) - fast for listing pages
+ */
+export async function loadProjectsMetadata(): Promise<PostMetadata[]> {
+  const posts: PostMetadata[] = [];
+
+  // Use Vite's glob import feature to load all markdown files
+  const modules = import.meta.glob('../../content/projects/*.md', {
+    eager: false,
+    query: '?raw',
+    import: 'default'
+  });
+
+  for (const path in modules) {
+    const filename = path.split('/').pop() || '';
+    const module = await modules[path]() as string;
+    const metadata = parseMarkdownMetadata(module, filename);
+    posts.push(metadata);
+  }
+
+  return sortPostMetadataByDate(posts);
+}
+
+/**
+ * Load all project posts from the content/projects directory (with full content)
  */
 export async function loadProjects(): Promise<Post[]> {
   const posts: Post[] = [];

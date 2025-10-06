@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "lucide-react";
-import { loadBlogPosts } from "@/lib/posts";
-import { formatDate, type Post } from "@/lib/markdown";
+import { loadBlogPostsMetadata } from "@/lib/posts";
+import { formatDate, type PostMetadata } from "@/lib/markdown";
 
 export const Blog = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<PostMetadata[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadBlogPosts()
+    loadBlogPostsMetadata()
       .then(setPosts)
       .catch(console.error)
       .finally(() => setLoading(false));
@@ -41,21 +41,21 @@ export const Blog = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {posts.map((post) => (
-            <Link key={post.metadata.slug} to={`/blog/${post.metadata.slug}`}>
+            <Link key={post.slug} to={`/blog/${post.slug}`}>
               <Card className="p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-card border-border cursor-pointer group h-full">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
                   <Calendar className="h-4 w-4" />
-                  {formatDate(post.metadata.date)}
+                  {formatDate(post.date)}
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
-                  {post.metadata.title}
+                  {post.title}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed mb-4 line-clamp-3">
-                  {post.content.substring(0, 150)}...
+                  {post.excerpt}...
                 </p>
-                {post.metadata.tags && post.metadata.tags.length > 0 && (
+                {post.tags && post.tags.length > 0 && (
                   <div className="flex flex-wrap gap-2 mt-auto">
-                    {post.metadata.tags.map((tag) => (
+                    {post.tags.map((tag) => (
                       <Badge key={tag} variant="secondary" className="text-xs">
                         {tag}
                       </Badge>
