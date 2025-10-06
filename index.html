@@ -19,6 +19,18 @@
 
   <body>
     <div id="root"></div>
+    <script>
+      // GitHub Pages SPA redirect handler
+      // Check if we were redirected from 404.html with a path parameter
+      (function() {
+        const params = new URLSearchParams(window.location.search);
+        const redirectPath = params.get('p');
+        if (redirectPath) {
+          // Remove the ?p= parameter and update browser history
+          window.history.replaceState(null, '', redirectPath);
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
