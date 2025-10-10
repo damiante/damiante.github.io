@@ -1,7 +1,8 @@
 ---
-title: "First post"
-date: "2021-05-26"
+title:  "First post"
+date:   2021-05-26 15:48:00 +1000
 tags: ["blog", "meta"]
+categories: blog
 ---
 
 Hello! This is my first post on my new site.
@@ -25,7 +26,7 @@ Part of the motivation for making a blogging platform is that there are a lot of
 things that other people do as hobbies that are super interesting to me; however
 , as I said on the landing page, I consider myself to be a super generalist.
 
-I think of myself in terms of the [Pareto Principle][pareto], which in general
+I think of myself in terms of the [Pareto Principle](https://en.wikipedia.org/wiki/Pareto_principle), which in general
 states that for any cause-and-effect relationship, 20% of the causes result in
 80% of the effects. In the case of learning new things, 80% of the outcome can
 be achieved by the first 20% of the effort; the remaining 80% of the effort
@@ -43,5 +44,3 @@ clumsily myself to do the job.
 
 Okay, that's all for this one; I will go make a couple of posts for my old projects
 now (which I expect to be brief as they're post-hoc).
-
-[pareto]: https://en.wikipedia.org/wiki/Pareto_principle
