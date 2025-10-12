@@ -36,10 +36,18 @@ export const ProjectPostTemplate = ({ content }: ProjectPostTemplateProps) => {
             </div>
           </CardHeader>
           <CardContent>
-            <article className="prose prose-lg max-w-none dark:prose-invert">
+            <article className="prose prose-lg max-w-none dark:prose-invert prose-p:my-4 prose-a:text-primary prose-a:underline hover:prose-a:text-primary/80">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw]}
+                components={{
+                  p: ({ children }) => <p className="mb-4">{children}</p>,
+                  a: ({ href, children }) => (
+                    <a href={href} className="text-primary hover:text-primary/80 underline" target="_blank" rel="noopener noreferrer">
+                      {children}
+                    </a>
+                  ),
+                }}
               >
                 {content.content || ''}
               </ReactMarkdown>

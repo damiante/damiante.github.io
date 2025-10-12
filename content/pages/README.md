@@ -77,6 +77,26 @@ values:
 ---
 ```
 
+## Embedding Images in Posts
+
+To include images in your blog posts or projects:
+
+1. **Place images in the `public/images/` directory**
+   - Images in `public/` are served as static assets
+   - This ensures they work both locally and when deployed to GitHub Pages
+
+2. **Reference images using absolute paths from root:**
+```markdown
+![Alt text](/images/your-image.jpg)
+```
+
+**Example:**
+```markdown
+![Profile picture](/images/profile.jpg)
+```
+
+**Important:** Do NOT use relative paths like `../../src/assets/` as these won't work when deployed.
+
 ## Template Development
 
 Templates are located in `src/components/templates/` and receive a `content` prop containing all frontmatter data from the markdown file. See existing templates for examples.

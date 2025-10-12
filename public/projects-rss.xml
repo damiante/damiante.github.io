@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Damian Testa - Blog - Projects</title>
+    <link>https://damiantesta.com/project</link>
+    <description>Latest projects from Damian Testa</description>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Oct 2025 01:31:44 GMT</lastBuildDate>
+    <atom:link href="https://damiantesta.com/project-rss.xml" rel="self" type="application/rss+xml"/>
+    
+    <item>
+      <title><![CDATA[Music production]]></title>
+      <link>https://damiantesta.com/project/2021-05-01-music</link>
+      <guid>https://damiantesta.com/project/2021-05-01-music</guid>
+      <pubDate>Fri, 30 Apr 2021 14:00:00 GMT</pubDate>
+      <description><![CDATA[I find generally that the world of music is really opaque to me. Talking to people, they almost all have this kind of formative experience during thei]]></description>
+      
+    </item>
+
+    <item>
+      <title><![CDATA[Sailing lessons]]></title>
+      <link>https://damiantesta.com/project/2019-11-07-sailing-lessons</link>
+      <guid>https://damiantesta.com/project/2019-11-07-sailing-lessons</guid>
+      <pubDate>Wed, 06 Nov 2019 14:00:00 GMT</pubDate>
+      <description><![CDATA[In late 2019 I took a beginner's sailing course. The course was designed to teach adults to sail dinghies in pairs by teaching introductory sailing te]]></description>
+      
+    </item>
+
+    <item>
+      <title><![CDATA[Painting lessons]]></title>
+      <link>https://damiantesta.com/project/2018-01-25-painting-lessons</link>
+      <guid>https://damiantesta.com/project/2018-01-25-painting-lessons</guid>
+      <pubDate>Wed, 24 Jan 2018 14:00:00 GMT</pubDate>
+      <description><![CDATA[In 2018 I took painting lessons in the hopes that it would help me understand the basics of painting (light/shadow, colour, etc.).  I had previously t]]></description>
+      <category>project</category>
+      <category>post-hoc</category>
+    </item>
+  </channel>
+</rss>

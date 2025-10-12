@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Rss } from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -14,7 +14,7 @@ export const Footer = () => {
           
           <div className="flex gap-6">
             <a
-              href="https://github.com"
+              href="https://github.com/damiante"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:opacity-70 transition-opacity"
@@ -32,11 +32,20 @@ export const Footer = () => {
               <Linkedin className="h-6 w-6" />
             </a>
             <a
-              href="mailto:hello@example.com"
+              href="mailto:damian@damiantesta.com"
               className="hover:opacity-70 transition-opacity"
               aria-label="Email"
             >
               <Mail className="h-6 w-6" />
+            </a>
+            <a
+              href="/rss.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-70 transition-opacity"
+              aria-label="RSS Feed"
+            >
+              <Rss className="h-6 w-6" />
             </a>
           </div>
         </div>

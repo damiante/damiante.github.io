@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Damian Testa - Blog</title>
+    <link>https://damiantesta.com</link>
+    <description>Blog posts and projects from Damian Testa</description>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Oct 2025 01:43:39 GMT</lastBuildDate>
+    <atom:link href="https://damiantesta.com/rss.xml" rel="self" type="application/rss+xml"/>
+    
+    <item>
+      <title><![CDATA[New blog]]></title>
+      <link>https://damiantesta.com/blog/2025-10-10-new-blog</link>
+      <guid>https://damiantesta.com/blog/2025-10-10-new-blog</guid>
+      <pubDate>Fri, 10 Oct 2025 11:22:00 GMT</pubDate>
+      <description><![CDATA[I haven't touched my site in a while so I decided it's a good time for a refresh. I used Claude Code to effectively recreate the same process as was u]]></description>
+      <category>blog</category>
+      <category>blog</category>
+      <category>meta</category>
+    </item>
+
+    <item>
+      <title><![CDATA[Test post]]></title>
+      <link>https://damiantesta.com/blog/2025-10-10-test-post</link>
+      <guid>https://damiantesta.com/blog/2025-10-10-test-post</guid>
+      <pubDate>Fri, 10 Oct 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Here is a test post; I'm going to try embedding a hyperlink: [Here is a test hyperlink](https://google.com)  Here is a test image: ![Picture of me](/i]]></description>
+      <category>blog</category>
+    </item>
+
+    <item>
+      <title><![CDATA[First post]]></title>
+      <link>https://damiantesta.com/blog/2021-05-26-first-post</link>
+      <guid>https://damiantesta.com/blog/2021-05-26-first-post</guid>
+      <pubDate>Wed, 26 May 2021 05:48:00 GMT</pubDate>
+      <description><![CDATA[Hello! This is my first post on my new site.  I built this site as one of my projects; some time ago I built and hosted my own website on a Raspberry ]]></description>
+      <category>blog</category>
+      <category>blog</category>
+      <category>meta</category>
+    </item>
+
+    <item>
+      <title><![CDATA[Future projects]]></title>
+      <link>https://damiantesta.com/blog/2021-05-26-future-projects</link>
+      <guid>https://damiantesta.com/blog/2021-05-26-future-projects</guid>
+      <pubDate>Wed, 26 May 2021 05:48:00 GMT</pubDate>
+      <description><![CDATA[I want to keep a list of all the things I would like to do but haven't done yet. As I do these things, I will link them to their articles in Projects.]]></description>
+      <category>blog</category>
+    </item>
+
+    <item>
+      <title><![CDATA[Music production]]></title>
+      <link>https://damiantesta.com/project/2021-05-01-music</link>
+      <guid>https://damiantesta.com/project/2021-05-01-music</guid>
+      <pubDate>Fri, 30 Apr 2021 14:00:00 GMT</pubDate>
+      <description><![CDATA[I find generally that the world of music is really opaque to me. Talking to people, they almost all have this kind of formative experience during thei]]></description>
+      <category>project</category>
+    </item>
+
+    <item>
+      <title><![CDATA[Sailing lessons]]></title>
+      <link>https://damiantesta.com/project/2019-11-07-sailing-lessons</link>
+      <guid>https://damiantesta.com/project/2019-11-07-sailing-lessons</guid>
+      <pubDate>Wed, 06 Nov 2019 14:00:00 GMT</pubDate>
+      <description><![CDATA[In late 2019 I took a beginner's sailing course. The course was designed to teach adults to sail dinghies in pairs by teaching introductory sailing te]]></description>
+      <category>project</category>
+    </item>
+
+    <item>
+      <title><![CDATA[Painting lessons]]></title>
+      <link>https://damiantesta.com/project/2018-01-25-painting-lessons</link>
+      <guid>https://damiantesta.com/project/2018-01-25-painting-lessons</guid>
+      <pubDate>Wed, 24 Jan 2018 14:00:00 GMT</pubDate>
+      <description><![CDATA[In 2018 I took painting lessons in the hopes that it would help me understand the basics of painting (light/shadow, colour, etc.).  I had previously t]]></description>
+      <category>project</category>
+      <category>blog</category>
+      <category>meta</category>
+    </item>
+  </channel>
+</rss>

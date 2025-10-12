@@ -3,7 +3,7 @@ layout: post
 title:  "Painting lessons"
 date:   2018-01-25 00:00:00 +1000
 categories: project
-tags: project post-hoc
+tags: ["blog", "meta"]
 ---
 
 In 2018 I took painting lessons in the hopes that it would help me
