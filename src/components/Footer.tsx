@@ -33,6 +33,7 @@ export const Footer = () => {
             </a>
             <a
               href="mailto:damian@damiantesta.com"
+              rel="noopener noreferrer"
               className="hover:opacity-70 transition-opacity"
               aria-label="Email"
             >
