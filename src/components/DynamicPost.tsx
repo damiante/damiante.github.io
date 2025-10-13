@@ -29,6 +29,7 @@ export const DynamicPost = ({ type, slug }: DynamicPostProps) => {
           const filename = path.split('/').pop() || '';
           const pathType = path.includes('/blog-posts/') ? 'blog' : path.includes('/projects/') ? 'project' : null;
 
+          // Check for flat file: projects/slug.md or blog-posts/slug.md
           if (pathType === type && filename === `${slug}.md`) {
             const module = await modules[path]() as string;
             const parsedContent = parsePageContent(module);
@@ -41,6 +42,25 @@ export const DynamicPost = ({ type, slug }: DynamicPostProps) => {
             setContent(parsedContent);
             found = true;
             break;
+          }
+
+          // Check for directory structure: projects/slug/index.md
+          if (pathType === type && filename === 'index.md') {
+            const pathParts = path.split('/');
+            const parentDir = pathParts[pathParts.length - 2];
+            if (parentDir === slug) {
+              const module = await modules[path]() as string;
+              const parsedContent = parsePageContent(module);
+
+              // Add default template if not specified
+              if (!parsedContent.template) {
+                parsedContent.template = type === "blog" ? "blog-post" : "project-post";
+              }
+
+              setContent(parsedContent);
+              found = true;
+              break;
+            }
           }
         }
 

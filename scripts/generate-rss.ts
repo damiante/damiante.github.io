@@ -17,16 +17,20 @@ const SITE_DESCRIPTION = 'Thoughts on technology, projects, and personal learnin
 
 function getAllPosts(dir: string, type: 'blog' | 'project'): Post[] {
   const postsDirectory = path.join(process.cwd(), 'content', dir);
-  const filenames = fs.readdirSync(postsDirectory);
+  const items = fs.readdirSync(postsDirectory);
 
-  const posts: Post[] = filenames
-    .filter(filename => filename.endsWith('.md'))
-    .map(filename => {
-      const filePath = path.join(postsDirectory, filename);
-      const fileContents = fs.readFileSync(filePath, 'utf8');
+  const posts: Post[] = [];
+
+  items.forEach(item => {
+    const itemPath = path.join(postsDirectory, item);
+    const stat = fs.statSync(itemPath);
+
+    if (stat.isFile() && item.endsWith('.md')) {
+      // Handle flat markdown files
+      const fileContents = fs.readFileSync(itemPath, 'utf8');
       const { data, content } = matter(fileContents);
 
-      const slug = filename.replace(/\.md$/, '');
+      const slug = item.replace(/\.md$/, '');
       const excerpt = data.excerpt || content.replace(/[#*`\n]/g, ' ').trim().substring(0, 150);
 
       // Normalize tags to array
@@ -39,18 +43,47 @@ function getAllPosts(dir: string, type: 'blog' | 'project'): Post[] {
         }
       }
 
-      return {
+      posts.push({
         title: data.title || 'Untitled',
         date: data.date || new Date().toISOString(),
         slug,
         excerpt,
         tags,
         type,
-      };
-    })
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      });
+    } else if (stat.isDirectory()) {
+      // Handle directory structure - only include index.md (not sub-pages)
+      const indexPath = path.join(itemPath, 'index.md');
+      if (fs.existsSync(indexPath)) {
+        const fileContents = fs.readFileSync(indexPath, 'utf8');
+        const { data, content } = matter(fileContents);
 
-  return posts;
+        const slug = item;
+        const excerpt = data.excerpt || content.replace(/[#*`\n]/g, ' ').trim().substring(0, 150);
+
+        // Normalize tags to array
+        let tags: string[] = [];
+        if (data.tags) {
+          if (Array.isArray(data.tags)) {
+            tags = data.tags;
+          } else if (typeof data.tags === 'string') {
+            tags = data.tags.split(' ');
+          }
+        }
+
+        posts.push({
+          title: data.title || 'Untitled',
+          date: data.date || new Date().toISOString(),
+          slug,
+          excerpt,
+          tags,
+          type,
+        });
+      }
+    }
+  });
+
+  return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 function generateRSSItem(post: Post): string {

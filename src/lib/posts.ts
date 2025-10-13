@@ -57,16 +57,33 @@ export async function loadBlogPosts(): Promise<Post[]> {
 export async function loadProjectsMetadata(): Promise<PostMetadata[]> {
   const posts: PostMetadata[] = [];
 
-  // Use Vite's glob import feature to load all markdown files
-  const modules = import.meta.glob('../../content/projects/*.md', {
+  // Load flat markdown files
+  const fileModules = import.meta.glob('../../content/projects/*.md', {
     eager: false,
     query: '?raw',
     import: 'default'
   });
 
-  for (const path in modules) {
+  for (const path in fileModules) {
     const filename = path.split('/').pop() || '';
-    const module = await modules[path]() as string;
+    const module = await fileModules[path]() as string;
+    const metadata = parseMarkdownMetadata(module, filename);
+    posts.push(metadata);
+  }
+
+  // Load directory-based projects (index.md files)
+  const dirModules = import.meta.glob('../../content/projects/*/index.md', {
+    eager: false,
+    query: '?raw',
+    import: 'default'
+  });
+
+  for (const path in dirModules) {
+    // Extract directory name as the slug (e.g., "cooking" from "cooking/index.md")
+    const parts = path.split('/');
+    const dirName = parts[parts.length - 2] || '';
+    const filename = `${dirName}.md`; // Use directory name as filename for slug generation
+    const module = await dirModules[path]() as string;
     const metadata = parseMarkdownMetadata(module, filename);
     posts.push(metadata);
   }
@@ -125,15 +142,17 @@ export async function loadBlogPost(slug: string): Promise<Post | null> {
 
 /**
  * Load a specific project by slug
+ * Supports both flat files (slug.md) and directory structure (slug/index.md)
  */
 export async function loadProject(slug: string): Promise<Post | null> {
-  const modules = import.meta.glob('../../content/projects/*.md', {
+  const modules = import.meta.glob('../../content/projects/**/*.md', {
     eager: false,
     query: '?raw',
     import: 'default'
   });
 
   for (const path in modules) {
+    // Check for flat file: projects/slug.md
     const filename = path.split('/').pop() || '';
     if (filename === `${slug}.md`) {
       try {
@@ -141,6 +160,81 @@ export async function loadProject(slug: string): Promise<Post | null> {
         return parseMarkdown(module, filename);
       } catch (error) {
         console.error(`Failed to load project: ${slug}`, error);
+        return null;
+      }
+    }
+
+    // Check for directory structure: projects/slug/index.md
+    const pathParts = path.split('/');
+    const parentDir = pathParts[pathParts.length - 2];
+    if (parentDir === slug && filename === 'index.md') {
+      try {
+        const module = await modules[path]() as string;
+        return parseMarkdown(module, `${slug}.md`);
+      } catch (error) {
+        console.error(`Failed to load project: ${slug}`, error);
+        return null;
+      }
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Load sub-pages for a specific project
+ * Returns metadata for all markdown files in content/projects/slug/ (excluding index.md)
+ */
+export async function loadProjectSubPages(projectSlug: string): Promise<PostMetadata[]> {
+  const subPages: PostMetadata[] = [];
+
+  const modules = import.meta.glob('../../content/projects/**/*.md', {
+    eager: false,
+    query: '?raw',
+    import: 'default'
+  });
+
+  for (const path in modules) {
+    const pathParts = path.split('/');
+    const parentDir = pathParts[pathParts.length - 2];
+    const filename = pathParts[pathParts.length - 1];
+
+    // Only include files in the project's directory, excluding index.md
+    if (parentDir === projectSlug && filename !== 'index.md') {
+      try {
+        const module = await modules[path]() as string;
+        const metadata = parseMarkdownMetadata(module, filename);
+        subPages.push(metadata);
+      } catch (error) {
+        console.error(`Failed to load sub-page: ${path}`, error);
+      }
+    }
+  }
+
+  return sortPostMetadataByDate(subPages);
+}
+
+/**
+ * Load a specific project sub-page
+ */
+export async function loadProjectSubPage(projectSlug: string, subPageSlug: string): Promise<Post | null> {
+  const modules = import.meta.glob('../../content/projects/**/*.md', {
+    eager: false,
+    query: '?raw',
+    import: 'default'
+  });
+
+  for (const path in modules) {
+    const pathParts = path.split('/');
+    const parentDir = pathParts[pathParts.length - 2];
+    const filename = pathParts[pathParts.length - 1];
+
+    if (parentDir === projectSlug && filename === `${subPageSlug}.md`) {
+      try {
+        const module = await modules[path]() as string;
+        return parseMarkdown(module, filename);
+      } catch (error) {
+        console.error(`Failed to load sub-page: ${projectSlug}/${subPageSlug}`, error);
         return null;
       }
     }

@@ -5,7 +5,7 @@
     <link>https://damiantesta.com</link>
     <description>Blog posts and projects from Damian Testa</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Oct 2025 01:43:39 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 13 Oct 2025 08:22:07 GMT</lastBuildDate>
     <atom:link href="https://damiantesta.com/rss.xml" rel="self" type="application/rss+xml"/>
     
     <item>
@@ -26,6 +26,18 @@
       <pubDate>Fri, 10 Oct 2025 00:00:00 GMT</pubDate>
       <description><![CDATA[Here is a test post; I'm going to try embedding a hyperlink: [Here is a test hyperlink](https://google.com)  Here is a test image: ![Picture of me](/i]]></description>
       <category>blog</category>
+    </item>
+
+    <item>
+      <title><![CDATA[Cooking Adventures]]></title>
+      <link>https://damiantesta.com/project/cooking</link>
+      <guid>https://damiantesta.com/project/cooking</guid>
+      <pubDate>Mon, 15 Jan 2024 00:00:00 GMT</pubDate>
+      <description><![CDATA[A collection of recipes and cooking experiments from my kitchen adventures]]></description>
+      <category>project</category>
+      <category>cooking</category>
+      <category>food</category>
+      <category>recipes</category>
     </item>
 
     <item>

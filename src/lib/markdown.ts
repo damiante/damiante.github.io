@@ -66,6 +66,12 @@ export function parseMarkdownMetadata(markdownContent: string, filename: string)
  */
 export function formatDate(dateString: string): string {
   const date = new Date(dateString);
+
+  // Check if date is valid
+  if (isNaN(date.getTime())) {
+    return 'Invalid Date';
+  }
+
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -102,8 +108,19 @@ export function sortPostMetadataByDate(posts: PostMetadata[]): PostMetadata[] {
 export function parsePageContent(markdownContent: string): PageContent {
   const { data, content } = matter(markdownContent);
 
+  // Normalize tags to array
+  let tags: string[] = [];
+  if (data.tags) {
+    if (Array.isArray(data.tags)) {
+      tags = data.tags;
+    } else if (typeof data.tags === 'string') {
+      tags = data.tags.split(' ');
+    }
+  }
+
   return {
     ...data,
+    tags,
     content: content.trim() || undefined,
   };
 }
