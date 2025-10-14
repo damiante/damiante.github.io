@@ -5,7 +5,7 @@
     <link>https://damiantesta.com</link>
     <description>Blog posts and projects from Damian Testa</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Oct 2025 08:22:07 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 13 Oct 2025 23:34:28 GMT</lastBuildDate>
     <atom:link href="https://damiantesta.com/rss.xml" rel="self" type="application/rss+xml"/>
     
     <item>
@@ -32,12 +32,12 @@
       <title><![CDATA[Cooking Adventures]]></title>
       <link>https://damiantesta.com/project/cooking</link>
       <guid>https://damiantesta.com/project/cooking</guid>
-      <pubDate>Mon, 15 Jan 2024 00:00:00 GMT</pubDate>
+      <pubDate>Mon, 15 Jan 2024 12:00:00 GMT</pubDate>
       <description><![CDATA[A collection of recipes and cooking experiments from my kitchen adventures]]></description>
       <category>project</category>
-      <category>cooking</category>
-      <category>food</category>
-      <category>recipes</category>
+      <category>ai-generated</category>
+      <category>test</category>
+      <category>meta</category>
     </item>
 
     <item>

@@ -7,7 +7,7 @@ import { formatDate, type PageContent, type PostMetadata } from '@/lib/markdown'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, FileText } from 'lucide-react';
-import { loadProjectSubPages } from '@/lib/posts';
+import { loadProjectSubPages, loadProjectSubPagesWithVariants } from '@/lib/posts';
 
 interface ProjectPostTemplateProps {
   content: PageContent;
@@ -20,12 +20,19 @@ export const ProjectPostTemplate = ({ content }: ProjectPostTemplateProps) => {
 
   useEffect(() => {
     if (slug) {
-      loadProjectSubPages(slug)
+      // Check if this project uses variants
+      const hasVariants = content.template === 'project-post-variants';
+
+      const loadFunction = hasVariants
+        ? loadProjectSubPagesWithVariants
+        : loadProjectSubPages;
+
+      loadFunction(slug)
         .then(setSubPages)
         .catch(console.error)
         .finally(() => setLoadingSubPages(false));
     }
-  }, [slug]);
+  }, [slug, content.template]);
 
   return (
     <div className="min-h-screen pt-24 pb-12">

@@ -16,6 +16,7 @@ export interface Post {
 export interface PageContent {
   [key: string]: any;
   content?: string;
+  template?: string;
 }
 
 /**

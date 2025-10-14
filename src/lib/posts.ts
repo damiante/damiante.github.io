@@ -268,3 +268,161 @@ export async function loadPageContent(pageName: string): Promise<PageContent | n
 
   return null;
 }
+
+/**
+ * Get available variant directories for a project
+ * Returns array of directory names sorted alphabetically
+ */
+export async function getProjectVariants(projectSlug: string): Promise<string[]> {
+  const modules = import.meta.glob('../../content/projects/**/*.md', {
+    eager: false,
+    query: '?raw',
+    import: 'default'
+  });
+
+  const variants = new Set<string>();
+
+  for (const path in modules) {
+    const pathParts = path.split('/');
+    const projectsIdx = pathParts.indexOf('projects');
+
+    if (projectsIdx >= 0 && pathParts.length > projectsIdx + 3) {
+      const dirName = pathParts[projectsIdx + 1];
+      const languageDir = pathParts[projectsIdx + 2];
+
+      // Check if this is in the right project and has a subdirectory structure
+      if (dirName === projectSlug && languageDir !== 'index.md') {
+        variants.add(languageDir);
+      }
+    }
+  }
+
+  return Array.from(variants).sort();
+}
+
+/**
+ * Load sub-pages for a project with variants
+ * If project uses variant template, loads from first variant directory
+ * Returns metadata for pages from the default (first alphabetically) variant directory
+ */
+export async function loadProjectSubPagesWithVariants(projectSlug: string): Promise<PostMetadata[]> {
+  const subPages: PostMetadata[] = [];
+
+  // Get variants
+  const variants = await getProjectVariants(projectSlug);
+
+  if (variants.length === 0) {
+    // No variants, use standard loading
+    return loadProjectSubPages(projectSlug);
+  }
+
+  // Use first variant directory alphabetically as default
+  const defaultVariant = variants[0];
+
+  const modules = import.meta.glob('../../content/projects/**/*.md', {
+    eager: false,
+    query: '?raw',
+    import: 'default'
+  });
+
+  for (const path in modules) {
+    const pathParts = path.split('/');
+    const projectsIdx = pathParts.indexOf('projects');
+
+    if (projectsIdx >= 0 && pathParts.length > projectsIdx + 3) {
+      const dirName = pathParts[projectsIdx + 1];
+      const variantDir = pathParts[projectsIdx + 2];
+      const filename = pathParts[projectsIdx + 3];
+
+      if (dirName === projectSlug && variantDir === defaultVariant && filename !== 'index.md') {
+        try {
+          const module = await modules[path]() as string;
+          const metadata = parseMarkdownMetadata(module, filename);
+          subPages.push(metadata);
+        } catch (error) {
+          console.error(`Failed to load sub-page: ${path}`, error);
+        }
+      }
+    }
+  }
+
+  return sortPostMetadataByDate(subPages);
+}
+
+/**
+ * Load a specific project sub-page variant
+ * Matches pages by their numeric prefix (e.g., 001-, 002-)
+ */
+export async function loadProjectSubPageVariant(
+  projectSlug: string,
+  subPageSlug: string,
+  variant?: string
+): Promise<Post | null> {
+  const modules = import.meta.glob('../../content/projects/**/*.md', {
+    eager: false,
+    query: '?raw',
+    import: 'default'
+  });
+
+  // Extract numeric prefix from subPageSlug if it exists
+  const prefixMatch = subPageSlug.match(/^(\d+)-/);
+  const numericPrefix = prefixMatch ? prefixMatch[1] : null;
+
+  // If no variant specified, try to load from project root first
+  if (!variant) {
+    for (const path in modules) {
+      const pathParts = path.split('/');
+      const parentDir = pathParts[pathParts.length - 2];
+      const filename = pathParts[pathParts.length - 1];
+
+      if (parentDir === projectSlug && filename === `${subPageSlug}.md`) {
+        try {
+          const module = await modules[path]() as string;
+          return parseMarkdown(module, filename);
+        } catch (error) {
+          console.error(`Failed to load sub-page: ${projectSlug}/${subPageSlug}`, error);
+          return null;
+        }
+      }
+    }
+
+    // If not found in root and has numeric prefix, try first variant
+    if (numericPrefix) {
+      const variants = await getProjectVariants(projectSlug);
+      if (variants.length > 0) {
+        variant = variants[0];
+      }
+    }
+  }
+
+  // Try to load from variant directory
+  if (variant) {
+    for (const path in modules) {
+      const pathParts = path.split('/');
+      const projectsIdx = pathParts.indexOf('projects');
+
+      if (projectsIdx >= 0 && pathParts.length > projectsIdx + 3) {
+        const dirName = pathParts[projectsIdx + 1];
+        const variantDir = pathParts[projectsIdx + 2];
+        const filename = pathParts[projectsIdx + 3];
+
+        // Match by exact slug or by numeric prefix
+        const filenameMatch = filename === `${subPageSlug}.md` ||
+          (numericPrefix && filename.startsWith(`${numericPrefix}-`));
+
+        if (dirName === projectSlug && variantDir === variant && filenameMatch) {
+          try {
+            const module = await modules[path]() as string;
+            // Return with original subPageSlug for consistent routing
+            return parseMarkdown(module, `${subPageSlug}.md`);
+          } catch (error) {
+            console.error(`Failed to load sub-page variant: ${projectSlug}/${variant}/${subPageSlug}`, error);
+            return null;
+          }
+        }
+      }
+    }
+  }
+
+  return null;
+}
