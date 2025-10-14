@@ -1,6 +1,6 @@
 ---
 title: Nonna's recipe archive
-date: 2024-01-15 12:00:00 +0000
+date: 2025-10-14 12:00:00 +0000
 tags: ai food language
 excerpt: Digitising recipes from my Nonna's handwritten notes
 template: project-post-variants
