@@ -6,9 +6,9 @@ export const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-center md:text-left">
-            <p className="text-lg font-medium mb-2">Let's build the future together</p>
+            <p className="text-lg font-medium mb-2">Echoes from Damian's mind</p>
             <p className="text-sm opacity-80">
-              Optimistic futurism, one project at a time
+              Projects and thoughts by just another guy
             </p>
           </div>
           
@@ -52,7 +52,7 @@ export const Footer = () => {
         </div>
         
         <div className="mt-8 pt-8 border-t border-primary-foreground/20 text-center text-sm opacity-70">
-          <p>&copy; {new Date().getFullYear()} Portfolio. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Damian Testa. All rights reserved.</p>
         </div>
       </div>
     </footer>

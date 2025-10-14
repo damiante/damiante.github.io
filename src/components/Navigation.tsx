@@ -35,7 +35,7 @@ export const Navigation = () => {
             to="/"
             className="text-2xl font-bold text-primary hover:text-secondary transition-colors"
           >
-            Portfolio
+            Damian Testa
           </Link>
 
           {/* Desktop Navigation */}
