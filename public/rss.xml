@@ -5,9 +5,21 @@
     <link>https://damiantesta.com</link>
     <description>Blog posts and projects from Damian Testa</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Oct 2025 23:34:28 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 14 Oct 2025 04:17:51 GMT</lastBuildDate>
     <atom:link href="https://damiantesta.com/rss.xml" rel="self" type="application/rss+xml"/>
     
+    <item>
+      <title><![CDATA[Nonna's recipe archive]]></title>
+      <link>https://damiantesta.com/project/nonna-recipes</link>
+      <guid>https://damiantesta.com/project/nonna-recipes</guid>
+      <pubDate>Tue, 14 Oct 2025 12:00:00 GMT</pubDate>
+      <description><![CDATA[Digitising recipes from my Nonna's handwritten notes]]></description>
+      <category>project</category>
+      <category>ai</category>
+      <category>food</category>
+      <category>language</category>
+    </item>
+
     <item>
       <title><![CDATA[New blog]]></title>
       <link>https://damiantesta.com/blog/2025-10-10-new-blog</link>
@@ -26,18 +38,6 @@
       <pubDate>Fri, 10 Oct 2025 00:00:00 GMT</pubDate>
       <description><![CDATA[Here is a test post; I'm going to try embedding a hyperlink: [Here is a test hyperlink](https://google.com)  Here is a test image: ![Picture of me](/i]]></description>
       <category>blog</category>
-    </item>
-
-    <item>
-      <title><![CDATA[Cooking Adventures]]></title>
-      <link>https://damiantesta.com/project/cooking</link>
-      <guid>https://damiantesta.com/project/cooking</guid>
-      <pubDate>Mon, 15 Jan 2024 12:00:00 GMT</pubDate>
-      <description><![CDATA[A collection of recipes and cooking experiments from my kitchen adventures]]></description>
-      <category>project</category>
-      <category>ai-generated</category>
-      <category>test</category>
-      <category>meta</category>
     </item>
 
     <item>

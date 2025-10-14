@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Nonna's recipe archive",
+    "date": "2025-10-14 12:00:00 +0000",
+    "slug": "nonna-recipes",
+    "excerpt": "Digitising recipes from my Nonna's handwritten notes",
+    "tags": [
+      "ai",
+      "food",
+      "language"
+    ]
+  },
+  {
+    "title": "Music production",
+    "date": "2021-05-01 00:00:00 +1000",
+    "slug": "2021-05-01-music",
+    "excerpt": "I find generally that the world of music is really opaque to me. Talking to people, they almost all have this kind of formative experience during thei",
+    "tags": []
+  },
+  {
+    "title": "Sailing lessons",
+    "date": "2019-11-07 00:00:00 +1000",
+    "slug": "2019-11-07-sailing-lessons",
+    "excerpt": "In late 2019 I took a beginner's sailing course. The course was designed to teach adults to sail dinghies in pairs by teaching introductory sailing te",
+    "tags": []
+  },
+  {
+    "title": "Painting lessons",
+    "date": "2018-01-25 00:00:00 +1000",
+    "slug": "2018-01-25-painting-lessons",
+    "excerpt": "In 2018 I took painting lessons in the hopes that it would help me understand the basics of painting (light/shadow, colour, etc.).  I had previously t",
+    "tags": [
+      "blog",
+      "meta"
+    ]
+  }
+]

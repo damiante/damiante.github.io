@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsx scripts/generate-rss.ts && vite build",
+    "build": "tsx scripts/generate-metadata.ts && tsx scripts/generate-rss.ts && vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "generate-rss": "tsx scripts/generate-rss.ts"
+    "generate-rss": "tsx scripts/generate-rss.ts",
+    "generate-metadata": "tsx scripts/generate-metadata.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

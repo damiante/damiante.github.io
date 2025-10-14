@@ -1,9 +1,33 @@
 import { parseMarkdown, parseMarkdownMetadata, parsePageContent, sortPostsByDate, sortPostMetadataByDate, type Post, type PostMetadata, type PageContent } from './markdown';
 
 /**
+ * Try to load pre-generated metadata from JSON file (production build optimization)
+ */
+async function loadPreGeneratedMetadata(filename: string): Promise<PostMetadata[] | null> {
+  try {
+    const response = await fetch(`/${filename}`);
+    if (response.ok) {
+      const data = await response.json();
+      console.log(`Loaded pre-generated metadata from ${filename}:`, data.length);
+      return data;
+    }
+  } catch (error) {
+    console.log(`Pre-generated metadata not found (${filename}), falling back to dynamic loading`);
+  }
+  return null;
+}
+
+/**
  * Load all blog posts metadata (without full content) - fast for listing pages
  */
 export async function loadBlogPostsMetadata(): Promise<PostMetadata[]> {
+  // Try to load pre-generated metadata first (production optimization)
+  const preGenerated = await loadPreGeneratedMetadata('blog-posts-metadata.json');
+  if (preGenerated) {
+    return preGenerated;
+  }
+
+  // Fallback to dynamic loading (development)
   const posts: PostMetadata[] = [];
 
   // Use Vite's glob import feature to load all markdown files
@@ -55,6 +79,13 @@ export async function loadBlogPosts(): Promise<Post[]> {
  * Load all project metadata (without full content) - fast for listing pages
  */
 export async function loadProjectsMetadata(): Promise<PostMetadata[]> {
+  // Try to load pre-generated metadata first (production optimization)
+  const preGenerated = await loadPreGeneratedMetadata('projects-metadata.json');
+  if (preGenerated) {
+    return preGenerated;
+  }
+
+  // Fallback to dynamic loading (development)
   const posts: PostMetadata[] = [];
 
   // Load flat markdown files
@@ -186,6 +217,22 @@ export async function loadProject(slug: string): Promise<Post | null> {
  * Returns metadata for all markdown files in content/projects/slug/ (excluding index.md)
  */
 export async function loadProjectSubPages(projectSlug: string): Promise<PostMetadata[]> {
+  // Try to load pre-generated metadata first (production optimization)
+  try {
+    const response = await fetch('/projects-subpages-metadata.json');
+    if (response.ok) {
+      const data = await response.json();
+      const projectData = data.find((p: { slug: string; subPages: PostMetadata[] }) => p.slug === projectSlug);
+      if (projectData) {
+        console.log(`Loaded pre-generated sub-pages for ${projectSlug}:`, projectData.subPages.length);
+        return projectData.subPages;
+      }
+    }
+  } catch (error) {
+    console.log(`Pre-generated sub-pages metadata not found for ${projectSlug}, falling back to dynamic loading`);
+  }
+
+  // Fallback to dynamic loading (development)
   const subPages: PostMetadata[] = [];
 
   const modules = import.meta.glob('../../content/projects/**/*.md', {
@@ -306,6 +353,23 @@ export async function getProjectVariants(projectSlug: string): Promise<string[]>
  * Returns metadata for pages from the default (first alphabetically) variant directory
  */
 export async function loadProjectSubPagesWithVariants(projectSlug: string): Promise<PostMetadata[]> {
+  // Try to load pre-generated metadata first (production optimization)
+  // The pre-generated metadata already handles variants correctly
+  try {
+    const response = await fetch('/projects-subpages-metadata.json');
+    if (response.ok) {
+      const data = await response.json();
+      const projectData = data.find((p: { slug: string; subPages: PostMetadata[] }) => p.slug === projectSlug);
+      if (projectData) {
+        console.log(`Loaded pre-generated sub-pages with variants for ${projectSlug}:`, projectData.subPages.length);
+        return projectData.subPages;
+      }
+    }
+  } catch (error) {
+    console.log(`Pre-generated sub-pages metadata not found for ${projectSlug}, falling back to dynamic loading`);
+  }
+
+  // Fallback to dynamic loading (development)
   const subPages: PostMetadata[] = [];
 
   // Get variants
