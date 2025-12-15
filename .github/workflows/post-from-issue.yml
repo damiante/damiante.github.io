@@ -1,0 +1,176 @@
+name: Create Blog Post from Issue
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  issues: read
+
+jobs:
+  create-post:
+    runs-on: ubuntu-latest
+    # Only run if comment is on an issue (not PR) and comment is exactly "/post"
+    if: github.event.issue.pull_request == null && github.event.comment.body == '/post'
+    steps:
+      - name: Check if commenter is authorized
+        id: check_user
+        run: |
+          if [ "${{ github.event.comment.user.login }}" != "damiante" ]; then
+            echo "Unauthorized user: ${{ github.event.comment.user.login }}"
+            exit 1
+          fi
+          echo "User authorized"
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Create blog post from issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const https = require('https');
+            const http = require('http');
+
+            // Get issue data
+            const issue = context.payload.issue;
+            const title = issue.title;
+            const createdAt = new Date(issue.created_at);
+            const labels = issue.labels.map(label =>
+              label.name.toLowerCase().replace(/\s+/g, '-')
+            );
+            const body = issue.body || '';
+
+            // Format date as YYYY-MM-DD HH:MM:SS +1000 (Australian Eastern time)
+            const year = createdAt.getFullYear();
+            const month = String(createdAt.getMonth() + 1).padStart(2, '0');
+            const day = String(createdAt.getDate()).padStart(2, '0');
+            const hours = String(createdAt.getHours()).padStart(2, '0');
+            const minutes = String(createdAt.getMinutes()).padStart(2, '0');
+            const seconds = String(createdAt.getSeconds()).padStart(2, '0');
+            const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds} +1000`;
+            const fileDate = `${year}-${month}-${day}`;
+
+            // Create slug from title (lowercase, replace spaces with hyphens)
+            const slug = title.toLowerCase()
+              .replace(/[^a-z0-9\s-]/g, '')
+              .replace(/\s+/g, '-')
+              .replace(/-+/g, '-')
+              .trim();
+
+            const filename = `${fileDate}-${slug}.md`;
+
+            // Download images and update references
+            const imageDir = path.join(process.cwd(), 'public', 'images');
+            if (!fs.existsSync(imageDir)) {
+              fs.mkdirSync(imageDir, { recursive: true });
+            }
+
+            // Function to download image
+            const downloadImage = (url, filepath) => {
+              return new Promise((resolve, reject) => {
+                const client = url.startsWith('https') ? https : http;
+                client.get(url, (response) => {
+                  if (response.statusCode === 302 || response.statusCode === 301) {
+                    // Handle redirect
+                    downloadImage(response.headers.location, filepath).then(resolve).catch(reject);
+                    return;
+                  }
+                  if (response.statusCode !== 200) {
+                    reject(new Error(`Failed to download: ${response.statusCode}`));
+                    return;
+                  }
+                  const fileStream = fs.createWriteStream(filepath);
+                  response.pipe(fileStream);
+                  fileStream.on('finish', () => {
+                    fileStream.close();
+                    resolve();
+                  });
+                  fileStream.on('error', reject);
+                }).on('error', reject);
+              });
+            };
+
+            // Process images in markdown
+            let processedBody = body;
+            const imageRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
+            let match;
+            const imagePromises = [];
+
+            while ((match = imageRegex.exec(body)) !== null) {
+              const altText = match[1];
+              const imageUrl = match[2];
+
+              // Only process external URLs (http/https)
+              if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+                const imageFilename = path.basename(new URL(imageUrl).pathname);
+                const localPath = path.join(imageDir, imageFilename);
+                const markdownPath = `/images/${imageFilename}`;
+
+                imagePromises.push(
+                  downloadImage(imageUrl, localPath).then(() => {
+                    processedBody = processedBody.replace(imageUrl, markdownPath);
+                  }).catch(err => {
+                    console.log(`Warning: Failed to download image ${imageUrl}: ${err.message}`);
+                  })
+                );
+              }
+            }
+
+            // Wait for all images to download
+            await Promise.all(imagePromises);
+
+            // Create frontmatter
+            const tagsArray = labels.length > 0 ? `["${labels.join('", "')}"]` : '[]';
+            const frontmatter = `---\ntitle: "${title}"\ndate: ${formattedDate}\ncategories: blog\ntags: ${tagsArray}\n---\n`;
+
+            // Create full post content
+            const postContent = frontmatter + '\n' + processedBody;
+
+            // Write blog post file
+            const postPath = path.join(process.cwd(), 'content', 'blog-posts', filename);
+            fs.writeFileSync(postPath, postContent, 'utf8');
+
+            console.log(`Created blog post: ${filename}`);
+            core.setOutput('filename', filename);
+            core.setOutput('filepath', postPath);
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add content/blog-posts/ public/images/
+          git commit -m "Add blog post from issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}" || echo "No changes to commit"
+          git push
+
+      - name: Add success comment
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ Blog post successfully created and deployed!'
+            })
+
+      - name: Add failure comment
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ Failed to create blog post. Check the [Actions tab](../../actions) for details.'
+            })

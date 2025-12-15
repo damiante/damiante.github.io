@@ -25,3 +25,7 @@ dist-ssr
 
 # Dependency directories
 package-lock.json
+
+
+# AI context
+requirements.md
