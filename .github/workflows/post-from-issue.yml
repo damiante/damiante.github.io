@@ -148,8 +148,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+          git config --local user.email "damian@damiantesta.com"
+          git config --local user.name "damiante"
           git add content/blog-posts/ public/images/
           git commit -m "Add blog post from issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}" || echo "No changes to commit"
           git push
