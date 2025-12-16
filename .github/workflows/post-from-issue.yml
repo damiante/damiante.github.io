@@ -144,14 +144,14 @@ jobs:
             core.setOutput('filepath', postPath);
 
       - name: Commit and push changes
-        with:
-          github_token: ${{ secrets.BLOG_DEPLOY_TOKEN }}
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add content/blog-posts/ public/images/
           git commit -m "Add blog post from issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}" || echo "No changes to commit"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.BLOG_DEPLOY_TOKEN }}
 
       - name: Add success comment
         if: success()
