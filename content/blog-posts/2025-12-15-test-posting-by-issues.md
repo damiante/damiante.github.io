@@ -11,3 +11,12 @@ This post comes from a GitHub issue.
 
 It includes ![an image](/images/94cf64ae-5067-4e30-9371-a80b9a86a75e)
 
+### Markdown table
+| Header | Header | Header | Header | Header |
+|--------|--------|--------|--------|--------|
+| Cell | Cell | Cell | Cell | Cell |
+| Cell | Cell | Cell | Cell | Cell |
+| Cell | Cell | Cell | Cell | Cell |
+| Cell | Cell | Cell | Cell | Cell |
+| Cell | Cell | Cell | Cell | Cell | 
+
