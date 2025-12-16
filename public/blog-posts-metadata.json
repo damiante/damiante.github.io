@@ -1,14 +1,5 @@
 [
   {
-    "title": "Test posting by issues",
-    "date": "2025-12-15 22:53:44 +1000",
-    "slug": "2025-12-15-test-posting-by-issues",
-    "excerpt": "This post comes from a GitHub issue.    Here   is some  markdown formatting  to test that ~~it gets applied~~  It includes ![an image](/images/94cf64a",
-    "tags": [
-      "good-first-issue"
-    ]
-  },
-  {
     "title": "New blog",
     "date": "2025-10-10 21:22:00 +1000",
     "slug": "2025-10-10-new-blog",
