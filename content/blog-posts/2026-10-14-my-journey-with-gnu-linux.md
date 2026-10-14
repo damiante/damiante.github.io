@@ -1,0 +1,46 @@
+---
+title: "My journey with GNU/Linux"
+date: 2026-10-14 12:00:00 +1000
+categories: blog
+tags: ["linux", "gnu", "operating-systems", "windows"]
+---
+
+# Introduction
+
+It seems that barely a week goes by when Microsoft does not make some outrageously silly product choice that makes you wonder how they could still be in business. Such user-hostile behaviour would surely kill the product of a lesser company, and yet thanks to its huge enterprise contracts, Microsoft Windows remains the _de facto_ PC OS of the masses, although Apple is slowly catching up.
+
+However, dear reader, your humble author remains, for the most part, blissfully unaffected by the bullshit that Satya Nadella wants his trough-feeding slop-eaters to guzzle down, as I have had the blessed mercy of not having used a Windows machine with any kind of regularity for about 10 years. Not only that, but I have no intention nor seeming need of ever returning to Windows. The astute amongst you would have noticed through the title that I also am not evangelising MacOS and I am referring to GNU/Linux (hereafter simply Linux, sorry rms).
+
+In this post I will discuss how I became acquainted with Linux and my journey to-date, why I believe it is more than suitable for nearly everyone using a computer today, what makes Linux different to other OSes, and how you can get started if you're interested.
+
+# Don't Stop Believin'
+
+From 2014-2017 I attended The University of Melbourne and studied a Bachelor of Science. I had originally planned to study Physics and go into academia, but I was finding that the Physics and Mathematics classes were draining me, the Computer Science classes (which I had taken on the assumption that modern scientists need to be able to create and run simulations and data analysis) were energising me. This realisation made me course-correct my major from Physics to Computing and Software Systems at the start of my second year.
+
+In this second year, more and more assumptions were being made about the knowledge of UNIX commands (a set of basic computer instructions which define particular kinds of OS), and I realised I needed to get more experience with Linux whether I wanted to or not. Until that point it had been sufficient to rote-learn the commands I needed to commit my project code onto the university's servers for assessment, but classes began to discuss the actual design and behaviour of UNIX-like OSes to the level of process resource allocation, memory management, etc. And Linux was the model of choice for reasons which to anyone already familiar with it will be obvious.
+
+At the time I feel that I may have also been looking to leave Windows more generally. I strongly remember trying to install probably Linux Mint on my Windows Surface tablet in my college's library and thinking I had bricked it, but I don't know whether that decision was made because of my coursework or because of my distaste for some recently-added anti privacy feature like forcing a Microsoft account to be synched with the device to log in.
+
+I think this ended up being a failure and I went back to Windows and decided that I needed an entirely different physical machine so as not to disturb my main driver and its expensive hardware. After some research in my favourite niche internet basement-dweller communities I was recommended to purchase a used Lenovo ThinkPad as they were cheap, plentiful, easy to repair, durable, and most importantly, highly compatible with the relevant drivers and self-installation processes. So I got myself an X220 from EBay for about $100. This was in 2016 so at the time the machine would have been 8 or 9 years old. As soon as I received it, I nuked the Windows OS from the hard drive and installed Mint straight onto the metal.
+
+I challenged myself to use the Thinkpad for basically everything I could and allow it to be limited only by hardware rather than software. What I came to learn was that, at this time, while some applications had native Linux versions, many needed a compatibility layer (ie WINE) to function correctly.
+
+At this point let's take a tangent and explore what makes Linux different so that you understand what this means and why it's necessary, and then the gravity of subsequent innovations.
+
+# What is an OS?
+
+At its core, a computer is a machine which uses electrical signals to process numbers. However, when we think about computer operations, we don't think about electrical signals going through connections on integrated circuitboards: they are far too many and far too complex for any man to hold that in his head. So in computing we make heavy use of the concept of _abstraction_. Like in abstract art, where the subject is depicted indirectly rather than directly, abstraction in computers takes a complex concept, like electrical signals passing through wires, and simplifies it for consumption of the layer above it.
+
+For example, physically computer chips are composed of many transistors, an electrical component which can vary how much electricity passes through it based on a signal. However, they become useful only when we have ways to encode logical commands with those signals and electrical flows (eg some arrangement of transistors and signals represents the ability to say "this thing AND that thing must be true and then I will output a signal"). This encoding mechanism for how to translate a bunch of physical electrical signals through transistors into logical constructs like AND, OR, etc. is an abstraction later; someone writing a program can work at the level of ANDs and ORs on numbers and not worry about the actual transistor behaviour underneath.
+
+The mapping layer from transistor signals to logical operations is called _firmware_ and it's usually packaged with the hardware (physical chip or component). Computers use _drivers_ to understand how to use firmware that is available when physical things are plugged into other physical things.
+
+However, even the level of ANDs and ORs is much too simplistic for the kinds of software applications we use today. We use many programs on our computers at once, and some may be of higher or lower priority, and all need different amounts of memory or computing power, and you need mechanisms to launch and manage and terminate these programs. The piece of software that manages other software which runs on your computer is called an _Operating System_ or OS.
+
+The OS provides two major functions: the first is what I mentioned earlier, managing the available system resources so that programs can do their thing, don't access stuff they're not allowed to, don't crash the machine, etc. This behaviour is managed with a component called the _kernel_. The second function is to provide an abstraction layer on top of the firmware to enable programs to execute even higher-level commands, like "do this until that happens" (a loop) or "only do this if something else is the case" (a conditional statement). Abstractions at this level are typically called machine instructions and in fact are still considered a very "close-to-the-metal" command, ie most programs don't even operate at this level either because it's too simplistic.
+
+In fact, most programs you're familiar with like your web browser or office tools or multimedia viewers are written at an even higher level of abstraction, with extremely powerful capabilities hidden behind single words of programming instructions. When a developer finishes writing a program in this way, it is _compiled_ from the high-level and powerful layer into a lower-level and simpler (but easier to execute for the machine) layer. This low-to-high mapping happens until you get down to the electrical signals again which ultimately allows the computer to do what you tell it to do.
+
+Let's focus on the machine instructions that are provided at the OS level, since these are what's relevant to this article. These instructions are at the level of "load this number into this location in memory", "perform this mathematical operation on these two numbers", "jump to this location in the instructions", and so forth. For a good understanding of this concept I would recommend you play the video game "Human Resource Machine" which more or less uses these concepts as the mechanic for solving various puzzles.
+
+These instructions are provided to applications by OSes as an intrinsic part the OS software, and importantly, although they generally have equivalents on different OSes, _the instructions themselves and their names may be different and have slightly different behaviours_. This is a key concept to realise so I will repeat it: the intructions available to a computer program you are likely to want to use like Google Chrome are different depending on whether Chrome is running on Windows, MacOS, or Linux, and they are not necessarily easy to translate. When such a program is compiled, it is not just translated from higher-level instructions to lower-level ones, but this is done in a way which is specific to the OS being targeted by the compilation. This is, for example, why programs which run on Windows don't necessarily work on MacOS, and it's why when you go to download a new program from the internet that you are asked whether you're using Windows or MacOS.
